@@ -49,6 +49,18 @@ public class EncryptionRunner implements CommandLineRunner {
         } catch (NullKeyException e) {
             throw new RuntimeException(e);
         }
+        tokenGenerationService.setEncryptionStrategyType(encryptionStrategyFactory.getEncryptionStrategy(EncryptionStrategyType.RSA));
+        try {
+            System.out.println("RSA Encryption!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            System.out.println("String to encrypt: " + text);
+            String rsaEncrypted = tokenGenerationService.encrypt(text);
+            System.out.println("Encrypted String: " + rsaEncrypted);
+            System.out.println("String to decrypt: " + rsaEncrypted);
+            String rsaDecrypted = tokenGenerationService.decrypt(rsaEncrypted);
+            System.out.println("Decrypted String: " + rsaDecrypted);
+        } catch (NullKeyException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 }
